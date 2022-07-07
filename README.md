@@ -15,4 +15,4 @@ You can also run the following command to test the program. The first parameter 
 python test.py <iterations_to_run: int>
 ```
 ## Authors
-This project was created and is maintained @atomicsorcerer.
+This project was created and is maintained [@atomicsorcerer](https://github.com/atomicsorcerer).
