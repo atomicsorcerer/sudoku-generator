@@ -41,7 +41,9 @@ class Board:
                 if z.get_entropy() == lowest_entropy_value:
                     coords_of_potential_tiles.append((z.x_coord, z.y_coord))
 
-        new_tile = coords_of_potential_tiles[random.randint(0, len(coords_of_potential_tiles) - 1)]
+        new_tile = coords_of_potential_tiles[
+            random.randint(0, len(coords_of_potential_tiles) - 1)
+        ]
 
         return new_tile
 

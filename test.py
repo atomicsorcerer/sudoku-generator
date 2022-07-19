@@ -28,7 +28,10 @@ class ProgressBar:
             self.count += 1
 
         print("\r", end="")
-        print(f"{str(self.tracker)}/{str(self.iterations)} - [{'=' * self.count}{'*' * (self.length - self.count)}]", end="")
+        print(
+            f"{str(self.tracker)}/{str(self.iterations)} - [{'=' * self.count}{'*' * (self.length - self.count)}]",
+            end="",
+        )
 
 
 def run_test_series(iterations_to_complete=100) -> tuple[float, int, list[str]]:
@@ -50,6 +53,6 @@ def run_test_series(iterations_to_complete=100) -> tuple[float, int, list[str]]:
 
 error_rate = run_test_series(arg_iterations)
 
-print("\n\n" + "Error Rate: " + str(round(error_rate[0]*100, 4)) + "%")
+print("\n\n" + "Error Rate: " + str(round(error_rate[0] * 100, 4)) + "%")
 print(f"An error was found {error_rate[1]} times.")
 print(f"Error(s) found: { list(set(error_rate[2])) }")

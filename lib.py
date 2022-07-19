@@ -46,8 +46,9 @@ def print_board(board, add_border=False) -> None:
         print("--------------------")
 
 
-def generate_board(show_process=False, print_final_result=True,
-                   generation_attempt_current_iteration=1) -> tuple[Board, int, int]:
+def generate_board(
+    show_process=False, print_final_result=True, generation_attempt_current_iteration=1
+) -> tuple[Board, int, int]:
     board = Board()
 
     for i in range(board.rows * board.columns):
@@ -68,5 +69,9 @@ def generate_board(show_process=False, print_final_result=True,
         try:
             board.collapse_random_tile()
         except:
-            return generate_board(show_process=show_process, print_final_result=print_final_result,
-                                  generation_attempt_current_iteration=generation_attempt_current_iteration+1)
+            return generate_board(
+                show_process=show_process,
+                print_final_result=print_final_result,
+                generation_attempt_current_iteration=generation_attempt_current_iteration
+                + 1,
+            )
