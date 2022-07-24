@@ -103,8 +103,6 @@ class Board:
             self.collapse_rows(i[0], i[1], i[2])
 
     def collapse_groups(self, x, y, new_value) -> None:
-        to_collapse_later = []
-
         if x < 3:
             if y < 3:
                 # collapse group 1, 1
@@ -203,7 +201,7 @@ class Board:
                 self.tiles[((y + 2) % 3) + 6][7].collapse_option(new_value)
                 self.tiles[((y + 2) % 3) + 6][8].collapse_option(new_value)
 
-    def collapse_random_tile(self):
+    def collapse_random_tile(self) -> tuple[int, int] | None:
         # make sure that there are still tiles to collapse
         if len(self.collapsed_tiles) >= self.rows * self.columns:
             self.completed = True
