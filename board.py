@@ -5,16 +5,22 @@ Sudoku Generator
 
 import random
 
+from exceptions import RowsAndColumnsValueError
 from tile import Tile
 
 
 class Board:
     def __init__(self, rows=9, columns=9):
+        if rows != columns:
+            raise RowsAndColumnsValueError(
+                "There must be the same number of rows and columns."
+            )
+
         self.rows = rows
         self.columns = columns
         self.tiles = []
         self.completed = False
-        self.counter = 0
+        self.is_classic_sudoku_board = rows == 9 and columns == 9
 
         # a list of all tiles that have been collapsed to 0 entropy
         # and have effected tiles in its area
@@ -23,12 +29,12 @@ class Board:
         for y in range(rows):
             new_row = []
             for x in range(columns):
-                new_row.append(Tile(x, y))
+                new_row.append(Tile(x, y, length=rows))
 
             self.tiles.append(new_row)
 
     def find_new_tile(self) -> tuple[int, int]:
-        lowest_entropy_value = 9
+        lowest_entropy_value = self.rows
 
         for i in self.tiles:
             for z in i:
@@ -106,6 +112,9 @@ class Board:
             self.collapse_groups(i[0], i[1], i[2])
 
     def collapse_groups(self, x, y, new_value) -> None:
+        if not self.is_classic_sudoku_board:
+            return
+
         to_collapse_later = []
 
         x_start = 0

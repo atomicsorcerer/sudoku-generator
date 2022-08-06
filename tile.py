@@ -9,16 +9,17 @@ from exceptions import ZeroEntropyError
 
 
 class Tile:
-    def __init__(self, x_coord, y_coord):
+    def __init__(self, x_coord, y_coord, length=9):
         self.x_coord = x_coord
         self.y_coord = y_coord
+        self.length = length
 
         # "value" is the same as superposition,
         # and it is generally assumed that anything can have multiple values
-        self.value = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        self.value = [i + 1 for i in range(length)]
 
     def __repr__(self) -> str:
-        if len(self.value) == 9:
+        if len(self.value) == self.length:
             return "Full"
         elif len(self.value) == 1:
             return f"{self.value[0]}"
@@ -43,7 +44,7 @@ class Tile:
         return self.value
 
     def random_collapse_full(self) -> list[int]:
-        self.random_collapse(amount=9)
+        self.random_collapse(amount=self.length)
 
         return self.value
 

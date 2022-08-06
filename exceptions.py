@@ -10,3 +10,7 @@ class ZeroEntropyError(Exception):
 
 class InvalidBoardError(Exception):
     pass
+
+
+class RowsAndColumnsValueError(Exception):
+    pass

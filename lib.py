@@ -12,8 +12,6 @@ def check_if_duplicates(list_of_elems) -> tuple[bool, list]:
     for z, elem in enumerate(list_of_elems):
         if list_of_elems.count(elem) == 2:
             duplicates_indexes.append(z)
-        if elem.get_entropy() != 1:
-            duplicates_indexes.append(z)
 
     if len(duplicates_indexes) > 0:
         return True, duplicates_indexes
@@ -49,9 +47,13 @@ def print_board(board, add_border=False) -> None:
 
 
 def generate_board(
-    show_process=False, print_final_result=True, generation_attempt_current_iteration=1
+    show_process=False,
+    print_final_result=True,
+    rows=9,
+    columns=9,
+    generation_attempt_current_iteration=1,
 ) -> tuple[Board, int, int]:
-    board = Board()
+    board = Board(rows=rows, columns=columns)
 
     for i in range(board.rows * board.columns):
         if board.completed:
@@ -74,6 +76,8 @@ def generate_board(
             return generate_board(
                 show_process=show_process,
                 print_final_result=print_final_result,
+                rows=rows,
+                columns=columns,
                 generation_attempt_current_iteration=generation_attempt_current_iteration
                 + 1,
             )
