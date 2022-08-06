@@ -78,12 +78,13 @@ class Board:
 
             if self.tiles[y][i.x_coord].get_entropy() == 1:
                 if not self.tile_already_added_to_used_list(i.x_coord, y):
+                    self.collapsed_tiles.append((i.x_coord, y))
                     to_collapse_later.append((i.x_coord, y, new_collapsed_value))
 
         for i in to_collapse_later:
-            self.collapsed_tiles.append((i[0], i[1]))
             self.collapse_columns(i[0], i[1], i[2])
             self.collapse_rows(i[0], i[1], i[2])
+            self.collapse_groups(i[0], i[1], i[2])
 
     def collapse_columns(self, x, y, new_value) -> None:
         to_collapse_later = []
@@ -96,14 +97,17 @@ class Board:
 
             if self.tiles[z][x].get_entropy() == 1:
                 if not self.tile_already_added_to_used_list(x, z):
+                    self.collapsed_tiles.append((x, z))
                     to_collapse_later.append((x, z, new_collapsed_value))
 
         for i in to_collapse_later:
-            self.collapsed_tiles.append((i[0], i[1]))
             self.collapse_columns(i[0], i[1], i[2])
             self.collapse_rows(i[0], i[1], i[2])
+            self.collapse_groups(i[0], i[1], i[2])
 
     def collapse_groups(self, x, y, new_value) -> None:
+        to_collapse_later = []
+
         x_start = 0
         y_start = 0
 
@@ -121,14 +125,64 @@ class Board:
         elif y < 9:
             y_start = 6
 
+        # first row
         for i in range(2):
-            self.tiles[y][(x + i + 1) % 3].collapse_option(new_value)
+            new_collapsed_value = self.tiles[y][(x + i + 1) % 3].collapse_option(
+                new_value
+            )[0]
 
-        for i in range(3):
-            self.tiles[((y + 1) % 3 + y_start)][i + x_start].collapse_option(new_value)
+            current_y_coord = y
+            current_x_coord = (x + i + 1) % 3
 
+            if self.tiles[current_y_coord][current_x_coord].get_entropy() == 1:
+                if not self.tile_already_added_to_used_list(
+                    current_x_coord, current_y_coord
+                ):
+                    self.collapsed_tiles.append((current_x_coord, current_y_coord))
+                    to_collapse_later.append(
+                        (current_x_coord, current_y_coord, new_collapsed_value)
+                    )
+
+        # second row
         for i in range(3):
-            self.tiles[((y + 2) % 3 + y_start)][i + x_start].collapse_option(new_value)
+            new_collapsed_value = self.tiles[((y + 1) % 3 + y_start)][
+                i + x_start
+            ].collapse_option(new_value)[0]
+
+            current_y_coord = (y + 1) % 3 + y_start
+            current_x_coord = i + x_start
+
+            if self.tiles[current_y_coord][current_x_coord].get_entropy() == 1:
+                if not self.tile_already_added_to_used_list(
+                    current_x_coord, current_y_coord
+                ):
+                    self.collapsed_tiles.append((current_x_coord, current_y_coord))
+                    to_collapse_later.append(
+                        (current_x_coord, current_y_coord, new_collapsed_value)
+                    )
+
+        # third row
+        for i in range(3):
+            new_collapsed_value = self.tiles[((y + 2) % 3 + y_start)][
+                i + x_start
+            ].collapse_option(new_value)[0]
+
+            current_y_coord = (y + 2) % 3 + y_start
+            current_x_coord = i + x_start
+
+            if self.tiles[current_y_coord][current_x_coord].get_entropy() == 1:
+                if not self.tile_already_added_to_used_list(
+                    current_x_coord, current_y_coord
+                ):
+                    self.collapsed_tiles.append((current_x_coord, current_y_coord))
+                    to_collapse_later.append(
+                        (current_x_coord, current_y_coord, new_collapsed_value)
+                    )
+
+        for i in to_collapse_later:
+            self.collapse_columns(i[0], i[1], i[2])
+            self.collapse_rows(i[0], i[1], i[2])
+            self.collapse_groups(i[0], i[1], i[2])
 
     def collapse_random_tile(self) -> tuple[int, int] | None:
         # make sure that there are still tiles to collapse

@@ -12,6 +12,8 @@ def check_if_duplicates(list_of_elems) -> tuple[bool, list]:
     for z, elem in enumerate(list_of_elems):
         if list_of_elems.count(elem) == 2:
             duplicates_indexes.append(z)
+        if elem.get_entropy() != 1:
+            duplicates_indexes.append(z)
 
     if len(duplicates_indexes) > 0:
         return True, duplicates_indexes
@@ -68,7 +70,7 @@ def generate_board(
 
         try:
             board.collapse_random_tile()
-        except:
+        except IndexError:
             return generate_board(
                 show_process=show_process,
                 print_final_result=print_final_result,
