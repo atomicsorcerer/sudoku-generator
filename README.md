@@ -14,5 +14,7 @@ You can also run the following command to test the program. The first parameter 
 ```commandline
 python test.py <iterations_to_run: int>
 ```
+## Contributing
+Pull requests are encouraged and welcomed, and will be merged if they pass the appropriate tests.
 ## Authors
 This project was created and is maintained [@atomicsorcerer](https://github.com/atomicsorcerer).
