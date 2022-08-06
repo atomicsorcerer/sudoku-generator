@@ -13,13 +13,14 @@ class Tile:
         self.x_coord = x_coord
         self.y_coord = y_coord
 
-        # "value" is the same as superposition, and it is generally assumed that anything can have multiple values
+        # "value" is the same as superposition,
+        # and it is generally assumed that anything can have multiple values
         self.value = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     def __repr__(self) -> str:
-        if self.get_entropy() == 9:
+        if len(self.value) == 9:
             return "Full"
-        elif self.get_entropy() == 1:
+        elif len(self.value) == 1:
             return f"{self.value[0]}"
         else:
             return f"({self.value})"

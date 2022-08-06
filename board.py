@@ -16,7 +16,8 @@ class Board:
         self.completed = False
         self.counter = 0
 
-        # a list of all tiles that have been collapsed to 0 entropy and have effected tiles in its area
+        # a list of all tiles that have been collapsed to 0 entropy
+        # and have effected tiles in its area
         self.collapsed_tiles = []
 
         for y in range(rows):
@@ -103,103 +104,31 @@ class Board:
             self.collapse_rows(i[0], i[1], i[2])
 
     def collapse_groups(self, x, y, new_value) -> None:
+        x_start = 0
+        y_start = 0
+
         if x < 3:
-            if y < 3:
-                # collapse group 1, 1
-                self.tiles[y][(x + 1) % 3].collapse_option(new_value)
-                self.tiles[y][(x + 2) % 3].collapse_option(new_value)
-                self.tiles[(y + 1) % 3][0].collapse_option(new_value)
-                self.tiles[(y + 1) % 3][1].collapse_option(new_value)
-                self.tiles[(y + 1) % 3][2].collapse_option(new_value)
-                self.tiles[(y + 2) % 3][0].collapse_option(new_value)
-                self.tiles[(y + 2) % 3][1].collapse_option(new_value)
-                self.tiles[(y + 2) % 3][2].collapse_option(new_value)
-
-            elif y < 6:
-                # collapse group 1, 2
-                self.tiles[y][(x + 1) % 3].collapse_option(new_value)
-                self.tiles[y][(x + 2) % 3].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 3)][0].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 3)][1].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 3)][2].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 3][0].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 3][1].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 3][2].collapse_option(new_value)
-
-            elif y < 9:
-                # collapse group 1, 3
-                self.tiles[y][(x + 1) % 3].collapse_option(new_value)
-                self.tiles[y][(x + 2) % 3].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 6)][0].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 6)][1].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 6)][2].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 6][0].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 6][1].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 6][2].collapse_option(new_value)
-
+            pass
         elif x < 6:
-            if y < 3:
-                # collapse group 2, 1
-                self.tiles[y][(x + 1) % 3].collapse_option(new_value)
-                self.tiles[y][(x + 2) % 3].collapse_option(new_value)
-                self.tiles[(y + 1) % 3][3].collapse_option(new_value)
-                self.tiles[(y + 1) % 3][4].collapse_option(new_value)
-                self.tiles[(y + 1) % 3][5].collapse_option(new_value)
-                self.tiles[(y + 2) % 3][3].collapse_option(new_value)
-                self.tiles[(y + 2) % 3][4].collapse_option(new_value)
-                self.tiles[(y + 2) % 3][5].collapse_option(new_value)
-            elif y < 6:
-                # collapse group 2, 2
-                self.tiles[y][(x + 1) % 3].collapse_option(new_value)
-                self.tiles[y][(x + 2) % 3].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 3)][3].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 3)][4].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 3)][5].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 3][3].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 3][4].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 3][5].collapse_option(new_value)
-            elif y < 9:
-                # collapse group 2, 3
-                self.tiles[y][(x + 1) % 3].collapse_option(new_value)
-                self.tiles[y][(x + 2) % 3].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 6)][3].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 6)][4].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 6)][5].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 6][3].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 6][4].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 6][5].collapse_option(new_value)
-
+            x_start = 3
         elif x < 9:
-            if y < 3:
-                # collapse group 3, 1
-                self.tiles[y][(x + 1) % 3].collapse_option(new_value)
-                self.tiles[y][(x + 2) % 3].collapse_option(new_value)
-                self.tiles[(y + 1) % 3][6].collapse_option(new_value)
-                self.tiles[(y + 1) % 3][7].collapse_option(new_value)
-                self.tiles[(y + 1) % 3][8].collapse_option(new_value)
-                self.tiles[(y + 2) % 3][6].collapse_option(new_value)
-                self.tiles[(y + 2) % 3][7].collapse_option(new_value)
-                self.tiles[(y + 2) % 3][8].collapse_option(new_value)
-            elif y < 6:
-                # collapse group 3, 2
-                self.tiles[y][(x + 1) % 3].collapse_option(new_value)
-                self.tiles[y][(x + 2) % 3].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 3)][6].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 3)][7].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 3)][8].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 3][6].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 3][7].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 3][8].collapse_option(new_value)
-            elif y < 9:
-                # collapse group 3, 3
-                self.tiles[y][(x + 1) % 3].collapse_option(new_value)
-                self.tiles[y][(x + 2) % 3].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 6)][6].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 6)][7].collapse_option(new_value)
-                self.tiles[((y + 1) % 3 + 6)][8].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 6][6].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 6][7].collapse_option(new_value)
-                self.tiles[((y + 2) % 3) + 6][8].collapse_option(new_value)
+            x_start = 6
+
+        if y < 3:
+            pass
+        elif y < 6:
+            y_start = 3
+        elif y < 9:
+            y_start = 6
+
+        for i in range(2):
+            self.tiles[y][(x + i + 1) % 3].collapse_option(new_value)
+
+        for i in range(3):
+            self.tiles[((y + 1) % 3 + y_start)][i + x_start].collapse_option(new_value)
+
+        for i in range(3):
+            self.tiles[((y + 2) % 3 + y_start)][i + x_start].collapse_option(new_value)
 
     def collapse_random_tile(self) -> tuple[int, int] | None:
         # make sure that there are still tiles to collapse
