@@ -11,7 +11,7 @@ import sys
 show_build_process = False
 
 try:
-    if sys.argv[1] == "show_process":
+    if sys.argv.count("--show_process") > 0:
         show_build_process = True
 except IndexError:
     pass

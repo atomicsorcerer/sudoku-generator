@@ -7,14 +7,30 @@ The wave function collapse algorithm is a newer idea generally implemented in ga
 ### Sudoku Generation
 For this implementation, each tile on the board is initialized with all possible values--the values 1 through 9. In quantum mechanics, the inspiration for this algorithm, one data point can contain multiple values. The algorithm goes through and randomly picks tiles to collapse to their lowest entropy (1). Every time this happens, all other tiles in the same group, column, and row loose that new value from their own array of values. This implements the restrictions that make sudoku work. This sudoku generator is a perfect way to represent the capabilities of the wave function collapse algorithm, and to make a few sudoku boards on the side.
 ### Sudoku Solver
-By collapsing specific tiles before random tile collapse takes over, the sudoku generator becomes a sudoku solver. Depending on the tiles "pre-collapsed," the solver may provide a different solution every run. There is no current runtime for the solver, so, for now, you will have to manually implement it using the provided functions in `lib.py` and `board.py`.
+By collapsing specific tiles before random tile collapse takes over, the sudoku generator becomes a sudoku solver. Depending on the tiles "pre-collapsed," the solver may provide a different solution every run. 
 ## Dependencies
 None! This project is built in 100% vanilla python to add transparency to the algorithm. The only included dependency is the `random` module which is built in to the language.
 ## Usage
-For now, there is not much customization possible at run time, so usage is quite simple. The `show_process` option will print out each iteration of the board while it is generating. This is helpful for studying the algorithm and debugging.
+### Generation
+Usage is quite simple. The `--show_process` flag will print out each iteration of the board while it is generating. This is helpful for studying the algorithm and debugging.
 ```commandline
-python main.py <show_process>
+python main.py <--show_process>
 ```
+### Solving
+The solving system is straightforward, but has more steps. The `--show_process` flag is the same, while the `--do_highlight` flag will mark the starting tiles after solving. To start, run the following command:
+```commandline
+python solve.py <--show_process> <--do_highlight>
+```
+After running the code, you will be prompted to select the tiles you want to collapse. 
+```
+---
+Enter the 'x' coordinate: ...
+Enter the 'y' coordinate: ...
+Enter value to collapse tile to: ...
+Do you want to collapse more tiles (y, N): ...
+```
+If you answer `y`, the menu will reopen until you are finished. The board will be solved once you answer 'N'.
+### Testing
 You can also run the following command to test the program. The first parameter sets how many boards you want generated. It is set to 1000 automatically. None of the boards will be printed to the console.
 ```commandline
 python test.py <iterations_to_run: int>

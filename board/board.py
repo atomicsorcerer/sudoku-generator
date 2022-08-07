@@ -218,7 +218,9 @@ class Board:
 
         return rand_x_coord, rand_y_coord
 
-    def collapse_specific_tile(self, x, y, value_to_set=None, do_highlight=False) -> tuple[int, int] | None:
+    def collapse_specific_tile(
+        self, x, y, value_to_set=None, do_highlight=False
+    ) -> tuple[int, int] | None:
         # make sure that there are still tiles to collapse
         if len(self.collapsed_tiles) >= self.rows * self.columns:
             self.completed = True
