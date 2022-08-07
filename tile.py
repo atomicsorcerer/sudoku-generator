@@ -3,9 +3,9 @@ Sudoku Generator
 © Atomic Sorcerer 2022
 """
 
-import random
-
 from exceptions import ZeroEntropyError
+
+import random
 
 
 class Tile:
@@ -13,6 +13,7 @@ class Tile:
         self.x_coord = x_coord
         self.y_coord = y_coord
         self.length = length
+        self.highlighted = False
 
         # "value" is the same as superposition,
         # and it is generally assumed that anything can have multiple values
@@ -22,7 +23,7 @@ class Tile:
         if len(self.value) == self.length:
             return "Full"
         elif len(self.value) == 1:
-            return f"{self.value[0]}"
+            return f"{'|' if self.highlighted else ''}{self.value[0]}{'|' if self.highlighted else ''}"
         else:
             return f"({self.value})"
 
@@ -58,7 +59,7 @@ class Tile:
         return self.value
 
     def change_value(self, new_value) -> list[int]:
-        if isinstance(new_value, list) and len(new_value) < 10:
+        if isinstance(new_value, list) and len(new_value) <= self.length:
             self.value = new_value
 
         return self.value

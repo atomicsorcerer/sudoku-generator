@@ -217,3 +217,32 @@ class Board:
         self.collapse_groups(rand_x_coord, rand_y_coord, new_value)
 
         return rand_x_coord, rand_y_coord
+
+    def collapse_specific_tile(self, x, y, value_to_set=None) -> tuple[int, int] | None:
+        # make sure that there are still tiles to collapse
+        if len(self.collapsed_tiles) >= self.rows * self.columns:
+            self.completed = True
+            return
+
+        # mark the tile to help in post-generation
+        self.tiles[y][x].highlighted = True
+
+        # add the used tile coordinates to the list of already used tiles
+        self.collapsed_tiles.append((x, y))
+
+        # set new value
+        if value_to_set is None:
+            value_to_set = self.tiles[y][x].random_collapse_full()[0]
+        else:
+            value_to_set = self.tiles[y][x].change_value([value_to_set])[0]
+
+        # collapse all rows
+        self.collapse_rows(x, y, value_to_set)
+
+        # collapse columns
+        self.collapse_columns(x, y, value_to_set)
+
+        # collapse groups
+        self.collapse_groups(x, y, value_to_set)
+
+        return x, y
