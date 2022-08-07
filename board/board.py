@@ -5,8 +5,8 @@ Sudoku Generator
 
 import random
 
-from exceptions import RowsAndColumnsValueError
-from tile import Tile
+from lib.exceptions import RowsAndColumnsValueError
+from board.tile import Tile
 
 
 class Board:
@@ -218,14 +218,15 @@ class Board:
 
         return rand_x_coord, rand_y_coord
 
-    def collapse_specific_tile(self, x, y, value_to_set=None) -> tuple[int, int] | None:
+    def collapse_specific_tile(self, x, y, value_to_set=None, do_highlight=False) -> tuple[int, int] | None:
         # make sure that there are still tiles to collapse
         if len(self.collapsed_tiles) >= self.rows * self.columns:
             self.completed = True
             return
 
-        # mark the tile to help in post-generation
-        self.tiles[y][x].highlighted = True
+        # mark the tile to help in debugging
+        if do_highlight:
+            self.tiles[y][x].highlighted = True
 
         # add the used tile coordinates to the list of already used tiles
         self.collapsed_tiles.append((x, y))

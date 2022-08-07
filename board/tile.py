@@ -3,7 +3,7 @@ Sudoku Generator
 © Atomic Sorcerer 2022
 """
 
-from exceptions import ZeroEntropyError
+from lib.exceptions import ZeroEntropyError
 
 import random
 

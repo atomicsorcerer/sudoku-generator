@@ -3,8 +3,8 @@ Sudoku Generator
 © Atomic Sorcerer 2022
 """
 
-from board import Board
-from exceptions import InvalidBoardError, ZeroEntropyError
+from board.board import Board
+from lib.exceptions import InvalidBoardError
 
 from copy import deepcopy
 

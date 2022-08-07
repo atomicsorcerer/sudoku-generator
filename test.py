@@ -2,7 +2,7 @@
 Sudoku Generator
 © Atomic Sorcerer 2022
 """
-from lib import generate_board
+from lib.utils import generate_board
 
 import sys
 
