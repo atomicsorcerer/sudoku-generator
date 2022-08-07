@@ -2,7 +2,12 @@
 # Sudoku Generator
 A demonstration and use case for the wave function collapse algorithm
 ## Description
-The wave function collapse algorithm is a newer idea generally implemented in games. It can be used to develop random or infinite patterns that all follow a set of restrictions. This can get quite complicated and very specific. One of the simplest ways to represent this algorithm is with a sudoku board. For this implementation, each tile on the board is initialized with all possible values--the values 1 through 9. In quantum mechanics, the inspiration for this algorithm, one data point can contain multiple values. The algorithm goes through and randomly picks tiles to collapse to their lowest entropy (1). Every time this happens, all other tiles in the same group, column, and row loose that new value from their own array of values. This implements the restrictions that make sudoku work. This sudoku generator is a perfect way to represent the capabilities of the wave function collapse algorithm, and to make a few sudoku boards on the side.
+### Wave Function Collapse Algorithm
+The wave function collapse algorithm is a newer idea generally implemented in games. It can be used to develop random or infinite patterns that all follow a set of restrictions. This can get quite complicated and very specific. One of the simplest ways to represent this algorithm is with a sudoku board. 
+### Sudoku Generation
+For this implementation, each tile on the board is initialized with all possible values--the values 1 through 9. In quantum mechanics, the inspiration for this algorithm, one data point can contain multiple values. The algorithm goes through and randomly picks tiles to collapse to their lowest entropy (1). Every time this happens, all other tiles in the same group, column, and row loose that new value from their own array of values. This implements the restrictions that make sudoku work. This sudoku generator is a perfect way to represent the capabilities of the wave function collapse algorithm, and to make a few sudoku boards on the side.
+### Sudoku Solver
+By collapsing specific tiles before random tile collapse takes over, the sudoku generator becomes a sudoku solver. Depending on the tiles "pre-collapsed," the solver may provide a different solution every run. There is no current runtime for the solver, so, for now, you will have to manually implement it using the provided functions in `lib.py` and `board.py`.
 ## Dependencies
 None! This project is built in 100% vanilla python to add transparency to the algorithm. The only included dependency is the `random` module which is built in to the language.
 ## Usage
