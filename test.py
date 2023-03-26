@@ -10,7 +10,7 @@ arg_iterations = 1000
 
 try:
     arg_iterations = int(sys.argv[1])
-except ValueError:
+except IndexError:
     pass
 
 
